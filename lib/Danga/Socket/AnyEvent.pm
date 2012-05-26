@@ -60,7 +60,7 @@ Epoll/KQueue/etc rather than other, less efficient mechanisms.
 package Danga::Socket::AnyEvent;
 
 use vars qw{$VERSION};
-$VERSION = "0.01";
+$VERSION = "0.02";
 use Carp;
 
 BEGIN {
@@ -852,6 +852,7 @@ sub push_back_read {
     my Danga::Socket $self = shift;
     my $buf = shift;
     push @{$self->{read_push_back}}, ref $buf ? $buf : \$buf;
+    $self->{event_watch} |= POLLIN;
     $PushBackSet{$self->{fd}} = $self;
 }
 
