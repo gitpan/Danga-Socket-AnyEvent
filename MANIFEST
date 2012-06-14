@@ -1,5 +1,9 @@
+Changes.pod
 lib/Danga/Socket/AnyEvent.pm
-t/00-use.t
 Makefile.PL
-MANIFEST
+MANIFEST			This list of files
+MANIFEST.SKIP
+SIGNATURE
+t/00-use.t
+t/12-closerace.t
 META.yml                                 Module meta-data (added by MakeMaker)

@@ -60,7 +60,7 @@ Epoll/KQueue/etc rather than other, less efficient mechanisms.
 package Danga::Socket::AnyEvent;
 
 use vars qw{$VERSION};
-$VERSION = "0.02";
+$VERSION = "0.03";
 use Carp;
 
 BEGIN {
@@ -962,9 +962,15 @@ sub watch_read {
                 $self->event_read() unless $self->{closed};
             }),
         );
+        if ( $PushBackSet{$fd} ) {
+            $self->{event_watch} |= POLLIN;
+        }
     }
     else {
         $watchers->[0] = undef;
+        if ( $PushBackSet{$fd} ) {
+            $self->{event_watch} &= ~POLLIN;
+        }
     }
 }
 
